@@ -8,8 +8,9 @@ class WorldTime
   String time; // time in the location
   String flag; //url assets flag icon
   String url; // url for the endpoints dealing with location
+  bool timeofDay; //time of day base on the actual time am/pm
 
-  WorldTime({this.location,this.flag,this.url});
+  WorldTime({this.location,this.flag,this.url,this.timeofDay});
 
   Future<void> getTime() async
   {
@@ -27,6 +28,8 @@ class WorldTime
       //set time property
       DateTime now = DateTime.parse(datetime);
       now = now.add(Duration(hours: int.parse(offset)));
+
+      timeofDay =  now.hour > 6 && now.hour < 20;
       time =DateFormat.jm().format(now);
     }catch(e)
     {
